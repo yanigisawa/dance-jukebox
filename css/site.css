@@ -1,0 +1,17 @@
+
+body { font-family: Arial, Verdana; font-size: 1.8em; }
+
+.dance-buttons { padding-top: 15px; }
+
+.dance-button-row { padding: 2px 0 2px 0; }
+
+.two-columns {
+    -moz-column-count: 2;
+    -moz-column-gap: 65px;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 65px;
+    column-count: 2;
+    column-gap: 65px;
+    white-space: nowrap;
+}
+
