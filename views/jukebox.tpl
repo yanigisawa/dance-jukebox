@@ -1,0 +1,109 @@
+% rebase('base.tpl', title = '')
+  <p class="lead">Use the buttons below to make a dance request. The Request will be displayed on the DJ's screen.</p>
+
+  <div class="row">
+    <div class="col-md-3">
+      <h3 class="">Queue <small>(Max 10)</small></h3>
+      <ol id="queueRequests" class="">
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div class="text-center">
+        <!-- <div class="row">
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-primary btn-lg">Dance</button>
+            <button type="button" class="btn btn-primary btn-lg">Song</button>
+          </div>
+        </div>-->
+
+        <div class="row" style="display: none" id="errorRow">
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error! </strong><span id="error-message"></span>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rhythm Dances <small>(Tap to Request)</small></h3>
+              </div>
+              <div class="panel-body">
+                <div class="row dance-button-row">
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Bolero">Bolero</button>
+                  </div>
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Salsa">Salsa</button>
+                  </div>
+                </div>
+                <div class="row dance-button-row">
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Cha Cha">Cha Cha</button>
+                  </div>
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Samba">Samba</button>
+                  </div>
+                </div>
+                <div class="row dance-button-row">
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Hustle">Hustle</button>
+                  </div>
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Swing">Swing</button>
+                  </div>
+                </div>
+                <div class="row dance-button-row">
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Mambo">Mambo</button>
+                  </div>
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="W.C. Swing">W.C. Swing</button>
+                  </div>
+                </div>
+                <div class="row dance-button-row">
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Rumba">Rumba</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Smooth Dances <small>(Tap to Request)</small></h3>
+              </div>
+              <div class="panel-body">
+                <div class="row dance-button-row">
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Foxtrot">Foxtrot</button>
+                  </div>
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Two Step">Two Step</button>
+                  </div>
+                </div>
+                <div class="row dance-button-row">
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Polka">Polka</button>
+                  </div>
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="V. Waltz">V. Waltz</button>
+                  </div>
+                </div>
+                <div class="row dance-button-row">
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Tango">Tango</button>
+                  </div>
+                  <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-requests" value="Waltz">Waltz</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

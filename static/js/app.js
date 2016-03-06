@@ -54,7 +54,15 @@ $(function () {
   });
 
   function renderRequestTable(){
-    var template = $("#dj-table").html();
+    var template_html = '{{ #rows }} ' +
+        '<tr>' +
+        '  <td>{{ index }}</td>' +
+        '  <td>{{ dance }}</td>' +
+        '  <td>{{ songName }}</td>'+
+        '  <td><button class="btn btn-danger btn-remove-request" value={{ index }}>Remove</button></td>' +
+        '</tr>' +
+        '{{ /rows }}';
+    var template = template_html; // $("#dj-table").html();
     Mustache.parse(template);
     var rows = [];
 
