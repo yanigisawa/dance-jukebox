@@ -1,13 +1,5 @@
 var DanceParty = (function () {
   var requests = [
-    { dance: "Tango", songName: "Love Gun" },
-    { dance: "Hustle", songName: null },
-    { dance: "Rumba", songName: null },
-    { dance: "Two Step", songName: "Ten Rounds" },
-    { dance: "W.C. Swing", songName: null },
-    { dance: "Bolero", songName: null },
-    { dance: "Swing", songName: null },
-    { dance: "Samba", songName: null },
   ];
 
   return { 
@@ -18,10 +10,9 @@ var DanceParty = (function () {
 
 
 $(function () {
+  var socket = io.connect('http://' + document.domain + ':' + location.port);
+
   var requests = DanceParty.getRequests();
-  $(requests).each(function(i) {
-    $("#queueRequests").append("<li>" + requests[i].dance + "</li>");
-  });
 
   function hasExistingRequest(danceName) {
     for (var i = 0; i < requests.length; i++) {
@@ -47,11 +38,17 @@ $(function () {
     }
     if (!hasExistingRequest($(this).val())) {
       $("#queueRequests").append("<li>" + $(this).val() + "</li>");
-      requests.push({ dance: $(this).val() });
+      socket.emit('request', { dance: $(this).val(), songName: null });
+      getRequests()
     } else {
       showErrorMessage($(this).val() + " is already requested.");
     }
   });
+
+  function showDjInfoMessage(message) {
+    $("#dj-alert-message").show();
+    $("#dj-info-message").append(message);
+  }
 
   function renderRequestTable(){
     var template_html = '{{ #rows }} ' +
@@ -59,10 +56,10 @@ $(function () {
         '  <td>{{ index }}</td>' +
         '  <td>{{ dance }}</td>' +
         '  <td>{{ songName }}</td>'+
-        '  <td><button class="btn btn-danger btn-remove-request" value={{ index }}>Remove</button></td>' +
+        '  <td><button class="btn btn-danger btn-remove-request" value={{ uuid }}>Remove</button></td>' +
         '</tr>' +
         '{{ /rows }}';
-    var template = template_html; // $("#dj-table").html();
+    var template = template_html; 
     Mustache.parse(template);
     var rows = [];
 
@@ -71,6 +68,7 @@ $(function () {
         index : i + 1,
         dance : requests[i].dance,
         songName : requests[i].songName,
+        uuid : requests[i].uuid
       });
     }
     var tableRendered = Mustache.render(template, { rows : rows});
@@ -78,21 +76,56 @@ $(function () {
     $("#request-count").html(requests.length);
   }
 
-  function showDjInfoMessage(message) {
-    $("#dj-alert-message").show();
-    $("#dj-info-message").append(message);
+  function renderJukeBox() {
+    console.log("render JukeBox: " + requests.length);
+    $("#queueRequests").html("");
+    $(requests).each(function(i) {
+      $("#queueRequests").append("<li>" + requests[i].dance + "</li>");
+    });
   }
 
-  renderRequestTable();
+  function renderClientUi() {
+    renderRequestTable();
+    renderJukeBox();
+  }
+
   $("#requestTable tbody").on("click", "button", function() {
     $("#dj-alert-message").hide();
     $("#dj-info-message").html("");
-    var index = $(this).val() - 1;
-    console.log($(this).text());
-    var removedItems = requests.splice(index, 1);
-    showDjInfoMessage("Removed " + removedItems[0].dance);
+    var uuid = $(this).val();
+    var itemToRemove;
+    for (var i = 0; i < requests.length; i++) {
+      if (requests[i].uuid == uuid) {
+        itemToRemove = requests[i];
+        break;
+      }
+    }
+    showDjInfoMessage("Removed " + itemToRemove.dance);
     renderRequestTable();
+    socket.emit('removedDance', itemToRemove);
+    getRequests()
   });
 
+  function getRequests() {
+    $.get('/requests', function (data) {
+      requests = data;
+      renderClientUi();
+    }, 'json');
+  }
+
+  getRequests();
+
+  socket.on('newRequest', function (request) {
+    console.log("received newRequest");
+    requests.push(request);
+    renderClientUi();
+  });
+
+
+  socket.on('requestRemoved', function(request) {
+    console.log("received requestRemoved");
+    getRequests();
+    renderClientUi();
+  });
 
 });
