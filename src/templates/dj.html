@@ -1,4 +1,5 @@
-% rebase('base.tpl', title = 'DJ Page')
+{% extends "base.html" %}
+{% block body %}
   <p class="lead">Requested Dances appear below</p>
 
   <div id="dj-alert-message" class="alert alert-info alert-dismissible" style="display: none;" role="alert">
@@ -20,4 +21,4 @@
     </div>
   </div>
 
-
+{% endblock %}

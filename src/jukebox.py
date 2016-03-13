@@ -1,17 +1,19 @@
-from flask import render_template
-from app import app
+from flask import render_template, Flask
+app = Flask(__name__)
 
-@route('/dj')
+@app.route('/dj')
 def djPage():
-    return template('dj')
+    return render_template('dj.html')
 
-@route('/')
+@app.route('/')
 def index():
-    return template('jukebox')
+    return render_template('jukebox.html')
 
-@route('/static/<path:path>')
-def callback(path):
-    response.set_header('Cache-Control', 'no-cache')
-    return static_file(path, root='static')
+# @app.route('/static/<path:path>')
+# def callback(path):
+#     response.set_header('Cache-Control', 'no-cache')
+#     return static_file(path, root='static')
 
-run(host='localhost', port=5000, reloader=True, server='paste', debug=True)
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=5000, debug=True)

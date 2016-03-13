@@ -1,4 +1,5 @@
-% rebase('base.tpl', title = '')
+{% extends "base.html" %}
+{% block body %}
   <p class="lead">Use the buttons below to make a dance request. The Request will be displayed on the DJ's screen.</p>
 
   <div class="row">
@@ -107,3 +108,5 @@
     </div>
   </div>
 
+
+{% endblock %}
