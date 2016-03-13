@@ -1,5 +1,5 @@
-from bottle import route, run, template, static_file, response
-import paste
+from flask import render_template
+from app import app
 
 @route('/dj')
 def djPage():
