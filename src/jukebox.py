@@ -6,16 +6,7 @@ import uuid
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-_requests = [
-    { 'dance': 'Tango',      'songName': 'Love Gun'},
-    { 'dance': "Hustle",     'songName': None },
-    { 'dance': "Rumba",      'songName': None },
-    { 'dance': "Two Step",   'songName': "Ten Rounds" },
-    { 'dance': "W.C. Swing", 'songName': None },
-    { 'dance': "Bolero",     'songName': None },
-    { 'dance': "Swing",      'songName': None },
-    { 'dance': "Samba",      'songName': None }]
-
+_requests = []
 
 @app.route('/requests')
 def getRequests():
@@ -57,5 +48,4 @@ def handle_new_request(request):
 
 
 if __name__ == "__main__":
-    # app.run(host="127.0.0.1", port=5000, debug=True)
-    socketio.run(app, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5001)
