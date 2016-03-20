@@ -37,7 +37,7 @@ $(function () {
       return ;
     }
     if (!hasExistingRequest($(this).val())) {
-      $("#queueRequests").append("<li>" + $(this).val() + "</li>");
+      $('.btn-requests').prop('disabled', true);
       socket.emit('request', { dance: $(this).val(), songName: null });
       getRequests()
     } else {
@@ -82,6 +82,7 @@ $(function () {
     $(requests).each(function(i) {
       $("#queueRequests").append("<li>" + requests[i].dance + "</li>");
     });
+    $('.btn-requests').prop('disabled', false);
   }
 
   function renderClientUi() {
