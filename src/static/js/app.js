@@ -37,9 +37,9 @@ $(function () {
       return ;
     }
     if (!hasExistingRequest($(this).val())) {
+      console.log("disable buttons");
       $('.btn-requests').prop('disabled', true);
       socket.emit('request', { dance: $(this).val(), songName: null });
-      getRequests()
     } else {
       showErrorMessage($(this).val() + " is already requested.");
     }
@@ -82,6 +82,7 @@ $(function () {
     $(requests).each(function(i) {
       $("#queueRequests").append("<li>" + requests[i].dance + "</li>");
     });
+    console.log("enable buttons");
     $('.btn-requests').prop('disabled', false);
   }
 
@@ -107,7 +108,7 @@ $(function () {
     getRequests()
   });
 
-  function getRequests() {
+  function getRequests(callback) {
     $.get('/requests', function (data) {
       requests = data;
       renderClientUi();
@@ -118,15 +119,13 @@ $(function () {
 
   socket.on('newRequest', function (request) {
     console.log("received newRequest");
-    requests.push(request);
-    renderClientUi();
+    getRequests();
   });
 
 
   socket.on('requestRemoved', function(request) {
     console.log("received requestRemoved");
     getRequests();
-    renderClientUi();
   });
 
 });
